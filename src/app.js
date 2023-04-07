@@ -7,10 +7,8 @@ const app = express()
 manager.initializeProducts()
 
 app.get('/products', (req, res)=> {
-    let products = manager.getProducts()
-    if (req.query.limit){
-        products = products.slice(0, req.query.limit)
-    }
+    const limit = Number(req.query.limit)
+    const products = manager.getProducts(limit)
     res.send({ products })
 })
 

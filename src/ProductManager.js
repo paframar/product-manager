@@ -18,9 +18,10 @@ class ProductManager {
 
     #repeatedCode = (products, code) => products.filter((prod)=> prod.code === code).length > 0
 
-    getProducts = () => {
+    getProducts = (limit) => {
         let products = fs.readFileSync(this.path, 'utf-8')
         products = JSON.parse(products)
+        if (limit) products = products.slice(0, limit)
         return products
     }
     
