@@ -1,23 +1,16 @@
-
-import manager from './ProductManager.js'
 import express from 'express'
+import cartRouter from './routes/cart.router.js'
+import productsRouter from './routes/products.router.js'
+import productManager from './classes/ProductManager.js'
 
 const app = express()
 
-manager.initializeProducts()
+productManager.initializeProducts();
 
-app.get('/products', (req, res)=> {
-    const limit = Number(req.query.limit)
-    const products = manager.getProducts(limit)
-    res.send({ products })
-})
+app.use(express.json())
+app.use('/products', productsRouter)
+app.use('/cart', cartRouter)
 
-app.get('/products/:pid', (req, res)=> {
-    let product = manager.getProductById(Number(req.params.pid))
-    res.send ( { product } )
-})
-
-
-app.listen(8080, () => console.log('* * * product-manager-server up! * * * '))
+app.listen(8080, () => console.log('[ √ ] server up!'))
 
 
