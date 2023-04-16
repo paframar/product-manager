@@ -38,15 +38,5 @@
         "code": 4045,
         "stock": 150,
         "status": true
-    },
-    {
-        "id": 5,
-        "title": "SteelSeries Pro2",
-        "description": "Worst keyboard you can buy.",
-        "price": 120,
-        "thumbnail": "https://m.media-amazon.com/images/I/81yOuAUQAiL._AC_SL1500_.jpg",
-        "code": 4012,
-        "stock": 150,
-        "status": true
     }
 ]

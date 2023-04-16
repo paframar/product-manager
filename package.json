@@ -1,9 +1,11 @@
 {
   "name": "product-manager",
   "version": "1.0.0",
-  "main": "product-manager.js",
+  "main": "src/app.js",
   "type": "module",
   "scripts": {
+    "start": "node .",
+    "dev": "nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

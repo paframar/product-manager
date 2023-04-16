@@ -1,1 +1,5 @@
 /node_modules
+/carts_init.json
+/carts.json
+/products.json
+/products_init.json

@@ -65,42 +65,43 @@ class ProductManager {
             }
         }
 
-        const products2 = this.getProducts()
+        const products = this.getProducts()
         
-        console.log('[ √ ] products initialized: ', products2)
+        console.log('[ √ ] products initialized: ', products)
 
     }
 
     #validationAddProduct = (title, description, price, code, stock, status, products) => {
 
+        let errMessage = ""
+
         if (!title || !description || !price || !code || !stock || !status) {
-            console.error('[ X ] Error adding product - Validation failed: Mandatory field/s missing.')
-            return false
+            errMessage='[ X ] Error adding product - Validation failed: Mandatory field/s missing.'
         }
-
+        
         if (this.#repeatedCode(products, code)){
-            console.error('[ X ] Error adding product - Validation failed: Code Repeated: ', code)
-            return false
+            errMessage=`[ X ] Error adding product - Validation failed: Code Repeated: ${code}` 
         }
-
-        return true
+        
+        if (errMessage === ""){
+            return true
+        }
+        console.error(errMessage)
+        return errMessage
     }
 
     addProduct = (title, description, price, thumbnail, code, stock, status) => {
 
         let products = this.getProducts()
 
-        console.log('products getted: ', products)
-
-        if (this.#validationAddProduct(title, description, price, code, stock, status, products) === false) return
+        const validation = this.#validationAddProduct(title, description, price, code, stock, status, products)
+        if ( validation !== true) return validation
         
         let id = this.#generateID(products);
 
         let newProduct = {id, title, description, price, thumbnail, code, stock, status};
 
         products.push(newProduct);
-
-        console.log('products pushed: ', products);
 
         fs.writeFileSync(
             this.products_path, 
@@ -109,29 +110,34 @@ class ProductManager {
 
         products = this.getProducts()
         
-        console.log('products updated: ', products)
+        console.log('[ √ ] products updated: ', products)
+
+        return true
     }
 
     updateProduct = (id, fields) => {
+        let updated = false
         let products = this.getProducts()
-
         products.map((product) => {
             if (product.id === id){
                 Object.keys(fields).map((key)=>{
                     product[key] = fields[key]
-                    fs.writeFileSync(this.products_path, JSON.stringify(products, null, 4))
-                    return
                 })
-                
+                fs.writeFileSync(this.products_path, JSON.stringify(products, null, 4))
+                updated = true
             }
         })
-
+        return updated
     } 
 
     deleteProduct = (id) => {
         let products = this.getProducts()
         const otherProducts = products.filter((product) => product.id !== id)
-        fs.writeFileSync(this.products_path, JSON.stringify(otherProducts, null, 4)) 
+        if (otherProducts.length !== products.length){
+            fs.writeFileSync(this.products_path, JSON.stringify(otherProducts, null, 4)) 
+            return true
+        }
+        return false
     }
 
     getProductById = (id) => {

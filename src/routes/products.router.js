@@ -1,32 +1,56 @@
 import { Router } from 'express'
 import manager from '../classes/ProductManager.js'
+import products from '../mockData/products.js';
 
 const router = Router()
 
 router.get('/', (req, res)=> {
     const limit = Number(req.query.limit)
     const products = manager.getProducts(limit)
-    console.log(limit 
-        ? `[ √ ] products getted - limit: ${limit}` 
-        : `[ √ ] products getted` 
-    )
-    res.send({ products })
+    const message = limit 
+        ? `[ √ ] Products list - limit: ${limit}` 
+        : `[ √ ] Products list` 
+
+    res.send({ message, products })
 });
 
 router.get('/:pid', (req, res)=> {
     let product = manager.getProductById(Number(req.params.pid))
-    console.log(req.params.pid 
-        ? `[ √ ] products getted. id: ${req.params.pid}` 
-        : `[ √ ] products getted`
-    )
-    res.send ( { product } )
+    const message = req.params.pid 
+        ? `[ √ ] Product #${req.params.pid}:` 
+        : `[ √ ] Products list:`
+
+    res.send ( { message, product } )
 });
 
 router.post('/', (req, res)=>{
     const { title, description, price, thumbnail, code, stock, status } = req.body;
-    manager.addProduct(title, description, price, thumbnail, code, stock, status);
-    res.send('[ √ ] Product added!');
-    
+    const addProductResponse = manager.addProduct(title, description, price, thumbnail, code, stock, status);
+
+    const message = addProductResponse === true
+        ? '[ √ ] product added'
+        : addProductResponse
+
+    const products = manager.getProducts();
+    res.send({ message, products});
+});
+
+router.put('/:pid', (req, res)=>{
+    const updateProductResponse = manager.updateProduct(Number(req.params.pid), req.body);
+    const products = manager.getProducts();
+    const message = updateProductResponse
+        ? '[ √ ] Products updated.'
+        : `[ X ] Couldn't update. ID ${req.params.pid} not found.`
+    res.send({ message, products});
+});
+
+router.delete('/:pid', (req, res)=>{
+    const deleteProductResponse = manager.deleteProduct(Number(req.params.pid));
+    const products = manager.getProducts()
+    const message = deleteProductResponse 
+        ? `[ √ ] Product #${req.params.pid} deleted.`
+        : `[ X ] Couldn't delete product. ID ${req.params.pid} not found.`
+    res.send({ message, products})
 });
 
 export default router
