@@ -1,0 +1,47 @@
+<h1>Real time products</h1>
+
+<h1>Agregar Producto</h1>
+
+<form action="/agregar-producto" method="POST">
+    
+    <label for="id">ID:</label>
+    <input type="text" id="id" name="id" required><br><br>
+    
+    <label for="title">Título:</label>
+    <input type="text" id="title" name="title" required><br><br>
+    
+    <label for="description">Descripción:</label>
+    <textarea id="description" name="description" required></textarea><br><br>
+    
+    <label for="price">Precio:</label>
+    <input type="number" id="price" name="price" required><br><br>
+    
+    <label for="thumbnail">Imagen (URL):</label>
+    <input type="url" id="thumbnail" name="thumbnail" required><br><br>
+    
+    <label for="code">Código:</label>
+    <input type="text" id="code" name="code" required><br><br>
+    
+    <label for="stock">Stock:</label>
+    <input type="number" id="stock" name="stock" required><br><br>
+    
+    <label for="status">Estado:</label>
+    <select id="status" name="status">
+    <option value="true">Disponible</option>
+    <option value="false">No disponible</option>
+    </select><br><br>
+    
+    <button id="add-product-button" type="submit">Agregar Producto</button>
+
+</form>
+
+
+<ul id="real-time-product-list"></ul>
+
+<script>
+    console.log('realtimeProducts HTML')
+</script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="index.js"></script>
+

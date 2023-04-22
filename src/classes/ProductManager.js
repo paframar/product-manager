@@ -1,6 +1,6 @@
-import fs from 'fs'
-import productsJS from '../mockData/products.js'
-import path from 'path'
+const fs = require('fs')
+const productsJS = require('../mockData/products.js')
+const path = require('path')
 
 class ProductManager {
     products_path
@@ -146,5 +146,5 @@ class ProductManager {
     }
 }
 
-export default new ProductManager()
+module.exports = ProductManager
 

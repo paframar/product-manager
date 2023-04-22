@@ -1,6 +1,6 @@
-import { Router } from 'express'
-import manager from '../classes/ProductManager.js'
-import products from '../mockData/products.js';
+const { Router } = require('express')
+const manager = require('../classes/ProductManager.js')
+const products = require('../mockData/products.js')
 
 const router = Router()
 
@@ -53,4 +53,4 @@ router.delete('/:pid', (req, res)=>{
     res.send({ message, products})
 });
 
-export default router
+module.exports = router

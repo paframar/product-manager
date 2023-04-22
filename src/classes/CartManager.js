@@ -1,5 +1,5 @@
-import fs from 'fs'
-import cartsJS from '../mockData/carts.js'
+const fs = require('fs')
+const cartsJS = require('../mockData/carts.js')
 
 class CartManager {
     carts_path
@@ -120,5 +120,5 @@ class CartManager {
     }
 }
 
-export default new CartManager()
+module.exports = CartManager
 

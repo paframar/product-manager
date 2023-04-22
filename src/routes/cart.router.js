@@ -1,5 +1,5 @@
-import { Router } from 'express'
-import manager from '../classes/CartManager.js'
+const { Router } = require('express')
+const manager = require('../classes/CartManager.js')
 
 const router = Router()
 
@@ -33,4 +33,4 @@ router.post('/:cid/product/:pid', (req, res) => {
     res.send({ message, cartProducts})
 });
 
-export default router
+module.exports = router
