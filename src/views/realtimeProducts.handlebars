@@ -2,46 +2,58 @@
 
 <h1>Agregar Producto</h1>
 
-<form action="/agregar-producto" method="POST">
-    
-    <label for="id">ID:</label>
-    <input type="text" id="id" name="id" required><br><br>
-    
+<form 
+    id="add-product-form"
+    action="/api/products" 
+    method="POST" 
+    onsubmit="handleAddProduct(); return false;"
+>
+
     <label for="title">Título:</label>
+    <br>
     <input type="text" id="title" name="title" required><br><br>
     
     <label for="description">Descripción:</label>
+    <br>
     <textarea id="description" name="description" required></textarea><br><br>
     
     <label for="price">Precio:</label>
+    <br>
     <input type="number" id="price" name="price" required><br><br>
     
     <label for="thumbnail">Imagen (URL):</label>
+    <br>
     <input type="url" id="thumbnail" name="thumbnail" required><br><br>
     
     <label for="code">Código:</label>
+    <br>
     <input type="text" id="code" name="code" required><br><br>
     
     <label for="stock">Stock:</label>
+    <br>
     <input type="number" id="stock" name="stock" required><br><br>
     
     <label for="status">Estado:</label>
+    <br>
     <select id="status" name="status">
-    <option value="true">Disponible</option>
-    <option value="false">No disponible</option>
+    <option value="true">true</option>
+    <option value="false">false</option>
     </select><br><br>
     
-    <button id="add-product-button" type="submit">Agregar Producto</button>
+    <button 
+        id="add-product-button"
+        type="submit"
+    >
+        Agregar Producto
+    </button>
+
 
 </form>
 
 
 <ul id="real-time-product-list"></ul>
 
-<script>
-    console.log('realtimeProducts HTML')
-</script>
-
+<script> console.log('realtimeProducts.handlebars')</script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="index.js"></script>
 

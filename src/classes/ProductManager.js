@@ -76,6 +76,12 @@ class ProductManager {
         let errMessage = ""
 
         if (!title || !description || !price || !code || !stock || !status) {
+            console.log(' title => ', title)
+            console.log(' description => ', description)
+            console.log(' price => ', price)
+            console.log(' code => ', code)
+            console.log(' stock => ', stock)
+            console.log(' status => ', status)
             errMessage='[ X ] Error adding product - Validation failed: Mandatory field/s missing.'
         }
         

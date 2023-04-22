@@ -1,7 +1,6 @@
 const express = require('express');
 const handlebars = require('express-handlebars');
 const { Server } = require('socket.io');
-const path = require('path');
 const cartRouter = require('./routes/cart.router.js');
 const productsRouter = require('./routes/products.router.js');
 const viewsRouter = require('./routes/views.router.js');
@@ -16,11 +15,13 @@ const socketServer = new Server(httpServer)
 console.log('dirname ', __dirname)
 
 app.engine('handlebars', handlebars.engine())
-app.set('views', __dirname+'/views')
-app.set('view engine', 'handlebars')
-app.use(express.static(__dirname+'/public'))
-app.use('/', viewsRouter)
+// app.set('views', __dirname+'/views')
+app.set('views','./src/views')
 
+app.set('view engine', 'handlebars')
+// app.use(express.static(__dirname+'/public'))
+app.use(express.static('./src/public'))
+app.use('/', viewsRouter)
 
 app.use(express.json())
 app.use('/api/products', productsRouter)

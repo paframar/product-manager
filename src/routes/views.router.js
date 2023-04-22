@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 router.get('/realtimeproducts', (req, res) => {
     console.log('endpoint /realtimeproducts')
     const products = productManager.getProducts()
-    res.render('realtimeProducts', { products })
+    res.render('realtimeProducts', {})
 })
 
 module.exports = router

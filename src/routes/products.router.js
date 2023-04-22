@@ -1,7 +1,7 @@
 const { Router } = require('express')
-const manager = require('../classes/ProductManager.js')
-const products = require('../mockData/products.js')
+const ProductManager = require('../classes/ProductManager.js')
 
+const manager = new ProductManager()
 const router = Router()
 
 router.get('/', (req, res)=> {
