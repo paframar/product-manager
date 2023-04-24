@@ -1,59 +1,52 @@
 <h1>Real time products</h1>
 
 <h1>Agregar Producto</h1>
+<body>
 
-<form 
-    id="add-product-form"
-    action="/api/products" 
-    method="POST" 
-    onsubmit="handleAddProduct(); return false;"
->
+    <form id="product-form">
 
-    <label for="title">Título:</label>
-    <br>
-    <input type="text" id="title" name="title" required><br><br>
-    
-    <label for="description">Descripción:</label>
-    <br>
-    <textarea id="description" name="description" required></textarea><br><br>
-    
-    <label for="price">Precio:</label>
-    <br>
-    <input type="number" id="price" name="price" required><br><br>
-    
-    <label for="thumbnail">Imagen (URL):</label>
-    <br>
-    <input type="url" id="thumbnail" name="thumbnail" required><br><br>
-    
-    <label for="code">Código:</label>
-    <br>
-    <input type="text" id="code" name="code" required><br><br>
-    
-    <label for="stock">Stock:</label>
-    <br>
-    <input type="number" id="stock" name="stock" required><br><br>
-    
-    <label for="status">Estado:</label>
-    <br>
-    <select id="status" name="status">
-    <option value="true">true</option>
-    <option value="false">false</option>
-    </select><br><br>
-    
-    <button 
-        id="add-product-button"
-        type="submit"
-    >
-        Agregar Producto
-    </button>
+        <label for="title">Título:</label>
+        <br>
+        <input value="Logitech G203" type="text" id="title" name="title" required><br><br>
+        
+        <label for="description">Descripción:</label>
+        <br>
+        <input value="best mouse" type="text" id="description" name="description" required><br><br>
 
+        <label for="price">Precio:</label>
+        <br>
+        <input value="200" type="number" id="price" name="price" required><br><br>
+        
+        <label for="thumbnail">Imagen (URL):</label>
+        <br>
+        <input value="https://http2.mlstatic.com/D_NQ_NP_2X_907157-MLA31270987490_062019-F.webp" type="url" id="thumbnail" name="thumbnail" required><br><br>
+        
+        <label for="code">Código:</label>
+        <br>
+        <input value="43239012" type="text" id="code" name="code" required><br><br>
+        
+        <label for="stock">Stock:</label>
+        <br>
+        <input value="15" type="number" id="stock" name="stock" required><br><br>
+        
+        <label for="status">Estado:</label>
+        <br>
+        <select id="status" name="status">
+        <option value="true">true</option>
+        <option value="false">false</option>
+        </select><br><br>
+        
+        <button id="add-button">
+            Agregar Producto
+        </button>
 
-</form>
+    </form>
 
+    <ul id="products-list"></ul>
 
-<ul id="real-time-product-list"></ul>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="index.js"></script>
 
-<script> console.log('realtimeProducts.handlebars')</script>
-<script src="/socket.io/socket.io.js"></script>
-<script src="index.js"></script>
+</body>
+
 

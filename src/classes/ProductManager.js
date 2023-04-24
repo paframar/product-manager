@@ -1,6 +1,6 @@
-const fs = require('fs')
-const productsJS = require('../mockData/products.js')
-const path = require('path')
+import fs from 'fs'
+import productsJS from '../mockData/products.js'
+import path from 'path'
 
 class ProductManager {
     products_path
@@ -41,6 +41,8 @@ class ProductManager {
             console.log('[ X ] Error al leer products_init.json:', error.message);
         }
         
+        let message = ""
+
         if (!isInitialized) {
             
             try {
@@ -63,12 +65,18 @@ class ProductManager {
             } catch (error) {
                 console.log('[ X ] Error al escribir products_init.json:', error.message);
             }
+
+            message = '[ √ ] products initialized.'
+        
+        } else {
+            
+            message = '[ √ ] products already initialized.'
+
         }
 
         const products = this.getProducts()
-        
-        console.log('[ √ ] products initialized: ', products)
 
+        console.log(message, products)
     }
 
     #validationAddProduct = (title, description, price, code, stock, status, products) => {
@@ -76,12 +84,6 @@ class ProductManager {
         let errMessage = ""
 
         if (!title || !description || !price || !code || !stock || !status) {
-            console.log(' title => ', title)
-            console.log(' description => ', description)
-            console.log(' price => ', price)
-            console.log(' code => ', code)
-            console.log(' stock => ', stock)
-            console.log(' status => ', status)
             errMessage='[ X ] Error adding product - Validation failed: Mandatory field/s missing.'
         }
         
@@ -152,5 +154,5 @@ class ProductManager {
     }
 }
 
-module.exports = ProductManager
+export default ProductManager
 

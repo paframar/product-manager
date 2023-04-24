@@ -1,5 +1,5 @@
-const { Router } = require('express');
-const ProductManager = require('../classes/ProductManager.js');
+import { Router } from 'express';
+import ProductManager from '../classes/ProductManager.js';
 
 const router = new Router()
 let productManager = new ProductManager()
@@ -10,9 +10,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/realtimeproducts', (req, res) => {
-    console.log('endpoint /realtimeproducts')
-    const products = productManager.getProducts()
     res.render('realtimeProducts', {})
 })
 
-module.exports = router
+export default router

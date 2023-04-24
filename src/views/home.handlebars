@@ -13,10 +13,11 @@
             {{#each products}}
                 <li>
                     <h2>{{title}}</h2>
-                    <img style="max-height: 20vh;" src="{{thumbnail}}" alt="{{title}}">
+                    <img style="max-height: 15vh;" src="{{thumbnail}}" alt="{{title}}">
                     <p>Description: {{description}}</p>
                     <p>Price: ${{price}}</p>
                     <p>Stock: {{stock}} pieces.</p>
+                    <p>Code: {{code}} </p>
                 </li>
             {{/each}}
         </ul>

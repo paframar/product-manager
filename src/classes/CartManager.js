@@ -1,5 +1,5 @@
-const fs = require('fs')
-const cartsJS = require('../mockData/carts.js')
+import fs from 'fs'
+import cartsJS from '../mockData/carts.js'
 
 class CartManager {
     carts_path
@@ -26,6 +26,7 @@ class CartManager {
     initializeCarts = () => {
 
         let isInitialized = false;
+        let message = ""
 
         try {
             const data = fs.readFileSync(
@@ -59,11 +60,18 @@ class CartManager {
             } catch (error) {
                 console.log('[ X ] Error al escribir carts_init.json:', error.message);
             }
+
+            message = '[ √ ] carts initialized.'
+
+        } else {
+            
+            message = '[ √ ] carts already initialized.'
+
         }
 
         const carts = this.getCarts()
         
-        console.log('[ √ ] carts initialized: ', carts)
+        console.log(message, carts)
 
     }
 
@@ -120,5 +128,5 @@ class CartManager {
     }
 }
 
-module.exports = CartManager
+export default CartManager
 

@@ -1,16 +1,13 @@
-const { Router } = require('express')
-const manager = require('../classes/CartManager.js')
+import { Router } from 'express'
+import manager from '../classes/CartManager.js'
 
 const router = Router()
-
-
 
 router.get('/:cid', (req, res) => {
     const message = 'Showing Cart: #' + req.params.cid
     let cartProducts = manager.getCartProducts(Number(req.params.cid))
     res.send({ message, cartProducts})
 });
-
 
 router.post('/', (req, res) => {
     let newCartProducts = []
@@ -33,4 +30,4 @@ router.post('/:cid/product/:pid', (req, res) => {
     res.send({ message, cartProducts})
 });
 
-module.exports = router
+export default router

@@ -53,4 +53,4 @@ const carts = [
     },
 ];
 
-module.exports = carts
+export default carts
