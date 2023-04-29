@@ -30,10 +30,10 @@ const cartManager = new CartManager()
 productManager.initializeProducts();
 cartManager.initializeCarts();
 
-// socketServer.on('connection', (socketClient) => {
-//     console.log(`[ √ ] ${socketClient.id} connected.`)
-//     socketClient.on('newProductAdded', () => {
-//         const products = productManager.getProducts();
-//         socketServer.emit('updateProductList', products )
-//     })
-// })
+socketServer.on('connection', (socketClient) => {
+    console.log(`[ √ ] ${socketClient.id} connected.`)
+    socketClient.on('getProducts', () => {
+        const products = productManager.getProducts();
+        socketServer.emit('updateProductList', products)
+    })
+})

@@ -3,47 +3,53 @@
 <h1>Agregar Producto</h1>
 <body>
 
-    <form id="product-form">
+    <form id="product-form" style="display: flex; flex-direction:row; 
+        justify-content: space-around; width: 75%; padding:20px; 
+        border-style: solid; border-radius: 20px; margin: 10px;">
 
-        <label for="title">Título:</label>
-        <br>
-        <input value="Logitech G203" type="text" id="title" name="title" required><br><br>
-        
-        <label for="description">Descripción:</label>
-        <br>
-        <input value="best mouse" type="text" id="description" name="description" required><br><br>
+        <div>
+            <label for="title">Título:</label>
+            <br>
+            <input value="Logitech G203" type="text" id="title" name="title" required><br><br>
+            
+            <label for="description">Descripción:</label>
+            <br>
+            <input value="best mouse" type="text" id="description" name="description" required><br><br>
 
-        <label for="price">Precio:</label>
-        <br>
-        <input value="200" type="number" id="price" name="price" required><br><br>
-        
-        <label for="thumbnail">Imagen (URL):</label>
-        <br>
-        <input value="https://http2.mlstatic.com/D_NQ_NP_2X_907157-MLA31270987490_062019-F.webp" type="url" id="thumbnail" name="thumbnail" required><br><br>
-        
-        <label for="code">Código:</label>
-        <br>
-        <input value="43239012" type="text" id="code" name="code" required><br><br>
-        
-        <label for="stock">Stock:</label>
-        <br>
-        <input value="15" type="number" id="stock" name="stock" required><br><br>
-        
-        <label for="status">Estado:</label>
-        <br>
-        <select id="status" name="status">
-        <option value="true">true</option>
-        <option value="false">false</option>
-        </select><br><br>
-        
-        <button id="add-button">
-            Agregar Producto
-        </button>
+            <label for="price">Precio:</label>
+            <br>
+            <input value="200" type="number" id="price" name="price" required><br><br>
+            
+            <label for="thumbnail">Imagen (URL):</label>
+            <br>
+            <input value="https://http2.mlstatic.com/D_NQ_NP_2X_907157-MLA31270987490_062019-F.webp" type="url" id="thumbnail" name="thumbnail" required><br><br>
+        </div>
+        <div>
+            <label for="code">Código:</label>
+            <br>
+            <input value="43239012" type="text" id="code" name="code" required><br><br>
+            
+            <label for="stock">Stock:</label>
+            <br>
+            <input value="15" type="number" id="stock" name="stock" required><br><br>
+            
+            <label for="status">Estado:</label>
+            <br>
+            <select id="status" name="status">
+            <option value="true">true</option>
+            <option value="false">false</option>
+            </select><br><br>
+            
+            <button id="add-button">
+                Agregar Producto
+            </button>
+        </div>
 
     </form>
 
-    <ul id="products-list"></ul>
-
+    <ul id="products-list" style="list-style-type: none; display: flex; flex-direction:column; justify-content: space-evenly; padding:15px;"></ul>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="index.js"></script>
 
