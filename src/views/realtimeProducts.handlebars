@@ -1,7 +1,20 @@
-<h1>Real time products</h1>
+<script>
 
-<h1>Agregar Producto</h1>
+    function deleteProduct(id){
+        console.log(id)
+        fetch(`http://localhost:8080/api/products/${id}`, {
+            method: "delete"
+        })
+    }
+
+</script>
+
+
 <body>
+
+    <h1>Real time products</h1>
+
+    <h1>Agregar Producto</h1>
 
     <form id="product-form" style="display: flex; flex-direction:row; 
         justify-content: space-around; width: 75%; padding:20px; 
@@ -51,7 +64,7 @@
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="index.js"></script>
+    <script src="main.js"></script>
 
 </body>
 

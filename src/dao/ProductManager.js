@@ -1,6 +1,5 @@
 import fs from 'fs'
 import productsJS from '../mockData/products.js'
-import path from 'path'
 
 class ProductManager {
     products_path

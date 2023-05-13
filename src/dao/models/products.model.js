@@ -1,17 +1,18 @@
-import mongoose from 'mongoose'
-const productsCollection = 'products'
+import { Schema, model } from 'mongoose'
 
-const productsSchema = new mongoose.Schema({
-    id: Number,
-    title: String,
-    description: String,
-    price: Number,
+const schema = new Schema({
+    title: {type: String, required: true},
+    description: {type: String, required: true},
+    price: {type: Number, required: true},
     thumbnail: String,
-    code: Number,
-    stock: Number,
-    status: Boolean
+    code: {type: Number, required: true},
+    stock: {type: Number, required: true},
+    status: {type: Boolean, required: true}
+}, {
+    timestamps: true
 })
 
-const productsModel = mongoose.model(productsCollection, productsSchema)
+const productsDAO =  model('productsDAO', schema, 'products')
 
-export default productsModel 
+export default productsDAO
+

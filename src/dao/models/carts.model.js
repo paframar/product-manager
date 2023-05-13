@@ -1,11 +1,12 @@
-import mongoose from 'mongoose'
-const cartsCollection = 'carts'
+import { Schema, model } from 'mongoose'
 
-const cartsSchema = new mongoose.Schema({
+const schema = new Schema({
     id: Number,
     products: Array
+}, {
+    timestamps: true
 })
 
-const cartsModel = mongoose.model(cartsCollection, cartsSchema)
+const cartsDAO =  model('cartsDAO', schema, 'carts')
 
-export default cartsModel 
+export default cartsDAO

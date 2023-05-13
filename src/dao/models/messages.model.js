@@ -1,11 +1,13 @@
-import mongoose from 'mongoose'
-const messagesCollection = 'carts'
+import { Schema, model } from 'mongoose'
 
-const messagesSchema = new mongoose.Schema({
+const schema = new Schema({
     userEmail: String,
     message: String
+}, {
+    timestamps: true
 })
 
-const messagesModel = mongoose.model(messagesCollection, messagesSchema)
+const messagesDAO =  model('messagesDAO', schema, 'messages')
 
-export default messagesModel 
+export default messagesDAO
+
