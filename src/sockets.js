@@ -3,6 +3,7 @@ import MongoProductManager from "./dao/MongoProductManager.js"
 export default (io) => {
 
     io.on('connection', (socketClient) => {
+        
         console.log('`connection` listened.')
         console.log(`Socket #${socketClient.id} connected.`)
 
@@ -14,12 +15,14 @@ export default (io) => {
             io.emit('loadProducts', products)
             console.log('`loadProducts` emmited.')
         }
-        sendProducts()
 
         socketClient.on('updateProducts', () => {
             console.log('`updateProducts` listened.')
             sendProducts()  
         })
+
+        // sendProducts()
+
     })
 
     console.log('Server socket events configured.')

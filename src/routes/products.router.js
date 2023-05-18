@@ -35,18 +35,22 @@ router.post('/', (req, res)=>{
     //     managerMongo.create(req.body)
     // }
     // res.send({ message });
-    console.log('POST /api/product.')
+
+    console.log('POST /api/products.')
     productManager.addProduct(req.body)
-    res.send('Res: producto creado.')
+    res.send('producto creado.')
 });
 
 router.put('/:pid', (req, res)=>{
-    const updateProductResponse = manager.updateProduct(Number(req.params.pid), req.body);
-    const products = manager.getProducts();
-    const message = updateProductResponse
-        ? `[ √ ] Products updated.`
-        : `[ X ] Couldn't update. ID ${req.params.pid} not found.`
-    res.send({ message, products});
+    // const updateProductResponse = manager.updateProduct(Number(req.params.pid), req.body);
+    // const products = manager.getProducts();
+    // const message = updateProductResponse
+    //     ? `[ √ ] Products updated.`
+    //     : `[ X ] Couldn't update. ID ${req.params.pid} not found.`
+    // res.send({ message, products});
+
+    console.log(`PUT /api/products. id=${req.params.pid}`)
+    productManager.updateProduct(req.params.pid, req.body)
 });
 
 router.delete('/:pid', (req, res)=>{
@@ -57,7 +61,8 @@ router.delete('/:pid', (req, res)=>{
     //     : `[ X ] Couldn't delete product. ID ${req.params.pid} not found.`
     // res.send({ message, products})
 
-    console.log('DELETE /api/product.')
+    console.log(`DELETE /api/products. id=${req.params.pid}`)
+    productManager.deleteProduct(req.params.pid)
 
 });
 

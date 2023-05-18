@@ -1,25 +1,34 @@
-<script>
+<style>
 
-    function deleteProduct(id){
-        console.log(id)
-        fetch(`http://localhost:8080/api/products/${id}`, {
-            method: "delete"
-        })
+    *{
+        font-family: Monaco; 
     }
-
-</script>
-
+    .product-item{
+        display: flex; align-items: center; justify-content: space-around; 
+        list-style-type: none; border-style: solid; border-width: 1px; border-color: salmon; 
+        border-radius: 20px; margin-top: 10px; width: 80%; background-color: #000'
+    }
+    .product-item-text{
+        font-size: 11px;
+    }
+    .product-form{
+        display: flex; flex-direction:row; 
+        justify-content: space-around; width: 75%; padding:20px; 
+        border-style: solid; border-radius: 20px; margin: 10px;
+    }
+    .page-title{
+       margin: 10px; 
+    }
+    
+</style>
 
 <body>
 
-    <h1>Real time products</h1>
+    <h3 class="page-title">Real time products</h3>
 
-    <h1>Agregar Producto</h1>
+    <h4 class="page-title">Agregar Producto</h4>
 
-    <form id="product-form" style="display: flex; flex-direction:row; 
-        justify-content: space-around; width: 75%; padding:20px; 
-        border-style: solid; border-radius: 20px; margin: 10px;">
-
+    <form id="product-form" class="product-form">
         <div>
             <label for="title">Título:</label>
             <br>
@@ -60,8 +69,23 @@
 
     </form>
 
-    <ul id="products-list" style="list-style-type: none; display: flex; flex-direction:column; justify-content: space-evenly; padding:15px;"></ul>
-    
+
+
+    <ul id="products-list" style="list-style-type: none; display: flex; flex-direction:column; justify-content: space-evenly; padding:15px;">
+        {{#each products}}
+            <li class="product-item">
+                <img style="max-height: 5vh;" src={{this.thumbnail}} alt={this.title}>
+                <h4 class="product-item-text">{{this.title}}</h4>
+                <p class="product-item-text">{{this.description}}</p>
+                <p class="product-item-text">Code: {{this.code}}</p>
+                <p class="product-item-text">Price: {{this.price}}</p>
+                <p class="product-item-text">Stock: {{this.stock}} pieces.</p>
+                <button onclick="deleteProduct('{{this._id}}')">Del</button> 
+                <button onclick="updateProduct('{{this._id}}')">Upd</button> 
+            </li>
+        {{/each}}
+    </ul>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="main.js"></script>

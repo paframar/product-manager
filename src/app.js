@@ -26,17 +26,15 @@ connectDB()
 console.log('Midlewares.')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(express.static('./src/public'))
+app.use(express.json())
 
 console.log('Handlebars engine.')
-
 app.engine('handlebars', handlebars.engine())
 app.set('views','./src/views')
-
 app.set('view engine', 'handlebars')
-app.use(express.static('./src/public'))
 
 app.use('/', viewsRouter)
-app.use(express.json())
 
 console.log('Server routes.')
 app.use('/api/products', productsRouter)

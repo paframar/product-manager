@@ -21,6 +21,27 @@ class MongoProductManager {
             console.log('error al crear el producto.', err)
         }
     }
+
+    async deleteProduct(productId) {
+      try {
+        await productsDAO.findByIdAndRemove(productId).exec();
+        console.log(`Product with id ${productId} deleted successfully.`);
+      } catch (error) {
+        console.error('Error deleting product from Mongo DB: ', error);
+      }
+    }
+
+    async updateProduct(productId, updatedProduct) {
+      try {
+        const updated = await productsDAO.findByIdAndUpdate(productId, updatedProduct, { new: true }).lean().exec();
+        console.log(`Product with id ${productId} updated successfully.`);
+        return updated;
+      } catch (error) {
+        console.error('Error updating product in Mongo DB: ', error);
+        return null;
+      }
+    }
+
   }
 
 export default MongoProductManager
