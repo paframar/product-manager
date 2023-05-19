@@ -3,6 +3,7 @@ console.log('main.js loadad.')
 // PRODUCT LIST UPDATE
 
 let clientSocket = io();
+
 clientSocket.on('loadProducts', products => updateProductList(products))
 
 const updateProductList = (products) => {
@@ -25,60 +26,130 @@ const updateProductList = (products) => {
     productsList.innerHTML = listContent;
 };
 
-const deleteProductFetch = (pid) =>{
-    console.log('main.js/deleteProduct: ', pid)
-    fetch(`http://localhost:8080/api/products/${pid}`, {
-        method: "delete"
-    })
-    .then(() => {
-        clientSocket.emit('updateProducts')
-    })
-    .catch(error => console.error(error));
-};
+// const deleteProduct = (pid) =>{
+//     console.log('main.js/deleteProduct: ', pid)
+//     fetch(`http://localhost:8080/api/products/${pid}`, {
+//         method: "delete"
+//     })
+//     .then(() => {
+//         location.href = '/realtimeproducts';
+//     })
+//     .catch(error => console.error(error));
+// };
+// const updateProduct = (pid) => {
+//     console.log('main.js/updateProduct: ', pid)
+//     const productForm = document.getElementById('product-form');
+//     const formData = new FormData(productForm);
+//     const updatedProduct = {
+//         title: formData.get('title'),
+//         description: formData.get('description'),
+//         price: formData.get('price'),
+//         thumbnail: formData.get('thumbnail'),
+//         code: formData.get('code'),
+//         stock: formData.get('stock'),
+//         status: formData.get('status')
+//     };
+//     fetch(`http://localhost:8080/api/products/${pid}`, {
+//         method: 'PUT',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(updatedProduct)
+//     })
+//     .then((response) => {
+//         window.location.href = '/realtimeproducts';
+//     })
+//     .catch(error => console.error(error));
+// };
 
-const updateProductFetch = (pid) => {
 
-    const productForm = document.getElementById('product-form');
-    const formData = new FormData(productForm);
+// const deleteProduct = (pid) => {
+//     console.log('main.js/deleteProduct: ', pid);
+//     axios.delete(`http://localhost:8080/api/products/${pid}`)
+//     .then((response) => {
+//         console.log('update done - ', response);
+//     })
+//     .then(() => {
+//         document.location.replace('/realtimeproducts');
+//     })
+//     .catch(error => console.error(error));
+// };
+// const updateProduct = (pid) => {
+//     const productForm = document.getElementById('product-form');
+//     const formData = new FormData(productForm);
 
-    const updatedProduct = {
-        title: formData.get('title'),
-        description: formData.get('description'),
-        price: formData.get('price'),
-        thumbnail: formData.get('thumbnail'),
-        code: formData.get('code'),
-        stock: formData.get('stock'),
-        status: formData.get('status')
-    };
+//     const updatedProduct = {
+//         title: formData.get('title'),
+//         description: formData.get('description'),
+//         price: formData.get('price'),
+//         thumbnail: formData.get('thumbnail'),
+//         code: formData.get('code'),
+//         stock: formData.get('stock'),
+//         status: formData.get('status')
+//     };
 
-    fetch(`http://localhost:8080/api/products/${pid}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(updatedProduct)
-    })
-    .then((response) => {
-        clientSocket.emit('updateProducts')
-    })
-    .catch(error => console.error(error));
-};
+//     axios.put(`http://localhost:8080/api/products/${pid}`, updatedProduct, {
+//         headers: {
+//             'Content-Type': 'application/json'
+//             }
+//         })
+//         .then(() => {
+//             window.location.href = '/realtimeproducts';
+//         })
+//         .catch(error => console.error(error)
+//     );
+// };
+// const productsForm = document.getElementById('product-form');
+// productsForm.addEventListener('submit', e => {
 
-const axiosConfig = {
-    baseURL: '',
+//     console.log('form `submit` event listened.')
 
-  };
-  
-  const deleteProduct = (pid) => {
+//     e.preventDefault()
+
+//     console.log('submit event')
+
+//     const clientSocket = io()
+
+//     const formData = new FormData(e.currentTarget)
+
+//     const newProduct = {
+//         "title": formData.get("title"),
+//         "description": formData.get("description"),
+//         "price": formData.get("price"),
+//         "thumbnail": formData.get("thumbnail"),
+//         "code": formData.get("code"),
+//         "stock": formData.get("stock"),
+//         "status": formData.get('status'),
+//     }
+
+//     const url = 'http://localhost:8080/api/products';
+
+//     axios.post(url, newProduct, {
+//         headers: {
+//             'Content-Type': 'application/json',
+//         }
+//     })
+//     .then(response => {
+//         console.log(response)
+//     })
+//     .then( () => {
+//         window.location.href = '/realtimeproducts';
+//     })
+//     .catch(error => console.error(error))
+
+// });
+
+const deleteProduct = (pid) => {
     console.log('main.js/deleteProduct: ', pid);
-    axios.delete(`http://localhost:8080/api/products/${pid}`)
-    .then((response) => {
-        console.log('update done - ', response);
-    })
-    .then(() => {
-        clientSocket.emit('updateProducts')
-    })
-    .catch(error => console.error(error));
+    axios
+      .delete(`http://localhost:8080/api/products/${pid}`)
+      .then(() => {
+        console.log(' * delete done *');
+        window.location.href = '/realtimeproducts';
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   
   const updateProduct = (pid) => {
@@ -92,64 +163,57 @@ const axiosConfig = {
       thumbnail: formData.get('thumbnail'),
       code: formData.get('code'),
       stock: formData.get('stock'),
-      status: formData.get('status')
+      status: formData.get('status'),
     };
   
-    axios.put(`http://localhost:8080/api/products/${pid}`, updatedProduct, {
+    axios
+      .put(`http://localhost:8080/api/products/${pid}`, updatedProduct, {
         headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-        .then(() => {
-            clientSocket.emit('updateProducts')
-        })
-        .catch(error => console.error(error)
-    );
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(() => {
+        console.log(' * update done *');
+        window.location.href = '/realtimeproducts';
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   
-
-
-
-// FORM SUBMIT
-
-const productsForm = document.getElementById('product-form');
-
-productsForm.addEventListener('submit', e => {
-
-    console.log('form `submit` event listened.')
-
-    e.preventDefault()
-
-    console.log('submit event')
-
-    const formData = new FormData(e.currentTarget)
-
+  // ...
+  
+  const productsForm = document.getElementById('product-form');
+  
+  productsForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    console.log('form `submit` event listened.');
+  
+    const formData = new FormData(e.currentTarget);
+  
     const newProduct = {
-        "title": formData.get("title"),
-        "description": formData.get("description"),
-        "price": formData.get("price"),
-        "thumbnail": formData.get("thumbnail"),
-        "code": formData.get("code"),
-        "stock": formData.get("stock"),
-        "status": formData.get('status'),
-    }
-
-    const url = 'http://localhost:8080/api/products';
-
-    axios.post(url, newProduct, {
+      title: formData.get('title'),
+      description: formData.get('description'),
+      price: formData.get('price'),
+      thumbnail: formData.get('thumbnail'),
+      code: formData.get('code'),
+      stock: formData.get('stock'),
+      status: formData.get('status'),
+    };
+  
+    axios
+      .post('http://localhost:8080/api/products', newProduct, {
         headers: {
-            'Content-Type': 'application/json',
-        }
-    })
-    .then(response => {
-        console.log(response)
-    })
-    .then( () => {
-        console.log('axios POST then')
-        clientSocket.emit('updateProducts')
-    })
-    .catch(error => console.error(error))
-
-});
-
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(() => {
+        console.log(' * create done *');
+        window.location.href = '/realtimeproducts';
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  });
+  
 

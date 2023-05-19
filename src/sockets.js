@@ -6,23 +6,21 @@ export default (io) => {
         
         console.log('`connection` listened.')
         console.log(`Socket #${socketClient.id} connected.`)
-
-        const productManager = new MongoProductManager()
-        
-        const sendProducts = async () => {
-            const products = await productManager.getProducts();
-            console.log('Products recived from manager.')
-            io.emit('loadProducts', products)
-            console.log('`loadProducts` emmited.')
-        }
-
-        socketClient.on('updateProducts', () => {
-            console.log('`updateProducts` listened.')
-            sendProducts()  
-        })
+        // const sendProducts = async () => {
+        //     const productManager = new MongoProductManager();
+        //     const products = await productManager.getProducts();
+        //     console.log('Products recived from manager.')
+        //     io.emit('loadProducts', products)
+        //     console.log('`loadProducts` emmited.')
+        // }
 
         // sendProducts()
 
+        // socketClient.on('updateProducts', () => {
+        //     console.log('`updateProducts` listened.')
+        //     sendProducts()  
+        // })
+        
     })
 
     console.log('Server socket events configured.')

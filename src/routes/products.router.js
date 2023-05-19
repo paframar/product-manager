@@ -1,9 +1,12 @@
 import { Router } from 'express'
 import ProductManager from '../dao/ProductManager.js'
 import MongoProductManager from '../dao/MongoProductManager.js'
+import viewsRouter, { renderRealtimeProducts } from './views.router.js';
 
 // fs
-const manager = new ProductManager()
+// const manager = new ProductManager()
+
+// mongo
 const productManager = new MongoProductManager()
 
 const router = Router()
@@ -38,7 +41,7 @@ router.post('/', (req, res)=>{
 
     console.log('POST /api/products.')
     productManager.addProduct(req.body)
-    res.send('producto creado.')
+    renderRealtimeProducts(req, res);
 });
 
 router.put('/:pid', (req, res)=>{
@@ -51,6 +54,7 @@ router.put('/:pid', (req, res)=>{
 
     console.log(`PUT /api/products. id=${req.params.pid}`)
     productManager.updateProduct(req.params.pid, req.body)
+    renderRealtimeProducts(req, res);
 });
 
 router.delete('/:pid', (req, res)=>{
@@ -63,7 +67,7 @@ router.delete('/:pid', (req, res)=>{
 
     console.log(`DELETE /api/products. id=${req.params.pid}`)
     productManager.deleteProduct(req.params.pid)
-
+    renderRealtimeProducts(req, res);
 });
 
 export default router

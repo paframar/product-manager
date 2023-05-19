@@ -3,9 +3,10 @@ import { Schema, model } from 'mongoose'
 const schema = new Schema({
     id: Number,
     products: Array
-}, {
-    timestamps: true
-})
+    }, {
+        timestamps: true
+    }
+)
 
 const cartsDAO =  model('cartsDAO', schema, 'carts')
 
