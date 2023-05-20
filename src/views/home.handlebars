@@ -5,22 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        *{
+            font-family: Monaco; 
+        }
+
+        a {
+            color:coral;
+        }
+    </style>
 </head>
     <body>
-        <h1>Product Manager</h1>
+        <header>
+            <h1>ecommerce</h1>
+            <nav>
+                <a href="/realtimeproducts">agregar producto</a>
+                <a href="/realtimecart">ver carrito</a>
+                <a href="/messages">mensajes</a>
+            </nav>
+        </header>
 
-        <ul>
-            {{#each products}}
-                <li style="display: flex; list-style-type: none; padding:20px; border-style: solid; border-radius: 20px; margin: 10px; width: 40%;">
-                    <h2>{{title}}</h2>
-                    <img style="max-height: 5vh;" src="{{thumbnail}}" alt="{{title}}">
-                    <p>Description: {{description}}</p>
-                    <p>Price: ${{price}}</p>
-                    <p>Stock: {{stock}} pieces.</p>
-                    <p>Code: {{code}} </p>
-                </li>
-            {{/each}}
-        </ul>
+
+
 
     </body>
 

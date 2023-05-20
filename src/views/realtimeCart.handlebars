@@ -1,0 +1,41 @@
+<style>
+
+    *{
+        font-family: Monaco; 
+    }
+    .product-item{
+        display: flex; align-items: center; justify-content: space-around; 
+        list-style-type: none; border-style: solid; border-width: 1px; border-color: salmon; 
+        border-radius: 20px; margin-top: 10px; width: 80%; background-color: #000'
+    }
+    .product-item-text{
+        font-size: 11px;
+    }
+    .page-title{
+       margin: 10px; 
+    }
+    
+</style>
+
+<body>
+
+    <h3 class="page-title">Cart</h3>
+    <h4 class="page-title"></h4>
+    <ul id="products-list" style="list-style-type: none; display: flex; flex-direction:column; justify-content: space-evenly; padding:15px;">
+        {{#each cart.products}}
+            <li class="product-item">
+                <h4 class="product-item-text">{{this.title}}</h4>
+                <p class="product-item-text">{{this.description}}</p>
+                <p class="product-item-text">Code: {{this.code}}</p>
+                <p class="product-item-text">Price: {{this.price}}</p>
+                <p class="product-item-text">Stock: {{this.stock}} pieces.</p>
+                <button onclick="addProductFromCart('{{this._id}}')">Add</button> 
+                <button onclick="removeProductFromCart('{{this._id}}')">Del</button> 
+            </li>
+        {{/each}}
+    </ul>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="main.js"></script>
+
+</body>

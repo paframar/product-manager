@@ -13,6 +13,9 @@ import sockets from './sockets.js';
 import connectDB from './db.js';
 
 import MongoProductManager from './dao/MongoProductManager.js'
+import MongoCartManager from './dao/MongoCartManager.js';
+
+const cartManager = new MongoCartManager()
 
 const app = express();
 const httpServer = app.listen(8080, () => console.log('Server Up.'))
@@ -22,6 +25,9 @@ sockets(io)
 
 console.log('Connecting DB.')
 connectDB()
+
+console.log('Initializing User Cart.')
+cartManager.InitializeUserCart('userTestId');
 
 console.log('Midlewares.')
 app.use(express.json())

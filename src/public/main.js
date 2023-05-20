@@ -139,7 +139,7 @@ const updateProductList = (products) => {
 
 // });
 
-const deleteProduct = (pid) => {
+  const deleteProduct = (pid) => {
     console.log('main.js/deleteProduct: ', pid);
     axios
       .delete(`http://localhost:8080/api/products/${pid}`)
@@ -155,7 +155,7 @@ const deleteProduct = (pid) => {
   const updateProduct = (pid) => {
     const productForm = document.getElementById('product-form');
     const formData = new FormData(productForm);
-  
+
     const updatedProduct = {
       title: formData.get('title'),
       description: formData.get('description'),
@@ -165,7 +165,7 @@ const deleteProduct = (pid) => {
       stock: formData.get('stock'),
       status: formData.get('status'),
     };
-  
+
     axios
       .put(`http://localhost:8080/api/products/${pid}`, updatedProduct, {
         headers: {
