@@ -1,36 +1,16 @@
 import { Router } from 'express'
-import MongoCartManager from '../dao/CartManager.js'
+import MongoCartManager from '../dao/MongoCartManager.js'
+import { renderRealtimeCart } from './views.router.js'
 
 const router = Router()
 const cartManager = new MongoCartManager()
 
-router.get('/', (req, res) => {
-    // const message = 'Showing Cart: #' + req.params.cid
-    // let cartProducts = manager.getCartProducts(Number(req.params.cid))
-    // res.send({ message, cartProducts})
-
-});
-
-router.post('/', (req, res) => {
-    // let newCartProducts = []
-    // req.body.map((product)=> {
-    //     newCartProducts.push({ pid: product.id, quantity: 1 })
-    // })
-    // manager.addCart(newCartProducts)
-    // const message = '[ √ ] Cart added.'
-    // const cartProducts = manager.getCarts()
-    // res.send({ message, cartProducts})
-    
-});
-
-router.post('/:cid/product/:pid', (req, res) => {
-    // const message = 'Updated Cart #' + req.params.cid
-    // manager.addProductToCart(
-    //     Number(req.params.cid),
-    //     Number(req.params.pid),
-    // )
-    // const cartProducts = manager.getCarts()
-    // res.send({ message, cartProducts})
+router.put('/:pid', (req, res) => {
+    const { pid } = req.params
+    console.log('cart.router put pid: ', pid)
+    cartManager.addProductToCart(pid)
+    console.log('cartManager.addProductToCart passed.')
+    // renderRealtimeCart(req, res)
 });
 
 export default router

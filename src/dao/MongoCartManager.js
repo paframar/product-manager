@@ -1,57 +1,77 @@
 import cartsDAO from "./models/carts.model.js";
 
-class MongoCartManager {
+export default class MongoCartManager {
 
-    async getCart(userId) {
-      try {
-        const cart = await cartsDAO.findOne({ userId }).lean().exec();
-        console.log('Cart recived from Mongo DB.');
-        return cart
-      } catch (error) {
-        console.error('Error getting carts from Mongo DB: ', error);
-        return null;
+  async getCart() {
+    try {
+      const cart = await cartsDAO.findOne({ userId: process.env.USER_ID }).lean().exec();
+      return cart
+    } catch (error) {
+      console.error('Error getting carts from Mongo DB: ', error);
+      return null;
+    }
+  }
+
+  async InitializeUserCart() {
+    const cart = await this.getCart();
+    if (cart == null){
+      const emptyModel = {
+        userId: process.env.USER_ID,
+        products: [],
+      };
+      cartsDAO.create(emptyModel);
+      const newCart = await this.getCart();
+      console.log('InitializeUserCart - *NEW* Cart: ', newCart);
+    } else {
+      console.log('InitializeUserCart - Cart: ', cart);
+    }
+  }
+
+  async addProductToCart(pid){
+    console.log('addProductToCart')
+    try {
+      const cart = await this.getCart();
+      const { products } = cart;
+      let newProduct = true;
+      
+      console.log('cart products ', products)
+      products.map(product => {
+        if (product.pid === pid){
+          newProduct = false;
+          product.quantity ++;
+        }
+      });
+
+      if (newProduct === true){
+        products.push({ pid, quantity: 1});
       }
+
+      console.log('cart products updated: ', products)
+
+      this.updateCart(cart._id, {userId: process.env.USER_ID, products});
+
+    } catch (error) {
+      console.log('error ', error)
     }
+  }
 
-    async InitializeUserCart(userId) {
-      const cart = this.getCart(userId);
-      console.log('cart ', cart)
-      // const emptyModel = {
-      //   userId,
-      //   products: [],
-      // };
-      // cardsDAO.create(emptyModel)
+  async updateCart(cartId, updatedCart) {
+    try {
+      await cartsDAO.findByIdAndUpdate(cartId, updatedCart, { new: true }).lean().exec();
+      console.log(`Cart updated successfully.`);
+    } catch (error) {
+      console.error('Error updating product in Mongo DB: ', error);
+      return null;
     }
+  }
 
-    // async addCartProduct(newProduct){
-    //     try{
-    //         await productsDAO.create(newProduct)
-    //         console.log('manager: producto creado.')
-    //     } catch(err) {
-    //         console.log('error al crear el producto.', err)
-    //     }
-    // }
-
-    // async deleteCartProduct(productId) {
-    //   try {
-    //     await productsDAO.findByIdAndRemove(productId).exec();
-    //     console.log(`Product with id ${productId} deleted successfully.`);
-    //   } catch (error) {
-    //     console.error('Error deleting product from Mongo DB: ', error);
-    //   }
-    // }
-
-    // async updateCartProduct(productId, updatedProduct) {
-    //   try {
-    //     const updated = await productsDAO.findByIdAndUpdate(productId, updatedProduct, { new: true }).lean().exec();
-    //     console.log(`Product with id ${productId} updated successfully.`);
-    //     return updated;
-    //   } catch (error) {
-    //     console.error('Error updating product in Mongo DB: ', error);
-    //     return null;
-    //   }
-    // }
+  // async deleteCartProduct(productId) {
+  //   try {
+  //     await productsDAO.findByIdAndRemove(productId).exec();
+  //     console.log(`Product with id ${productId} deleted successfully.`);
+  //   } catch (error) {
+  //     console.error('Error deleting product from Mongo DB: ', error);
+  //   }
+  // }
 
 }
-
-export default MongoCartManager

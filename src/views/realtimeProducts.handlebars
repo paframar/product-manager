@@ -80,12 +80,14 @@
                 <p class="product-item-text">Stock: {{this.stock}} pieces.</p>
                 <button onclick="deleteProduct('{{this._id}}')">Del</button> 
                 <button onclick="updateProduct('{{this._id}}')">Upd</button> 
+                <button onclick="addToCart('{{this._id}}')">+ cart</button> 
             </li>
         {{/each}}
     </ul>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="main.js"></script>
+    <script src="products.js"></script>
+    <script src="cart.js"></script>
 
 </body>

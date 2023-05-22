@@ -11,31 +11,41 @@
     .product-item-text{
         font-size: 11px;
     }
-    .page-title{
+
+    h1 {
+        margin: 10px; 
+    }
+    .cart-id{
        margin: 10px; 
+       font-size: 14px;
+       color:silver;
     }
     
 </style>
 
 <body>
 
-    <h3 class="page-title">Cart</h3>
-    <h4 class="page-title"></h4>
+
+
+    <h1>Cart</h1>
+    <h5 class="cart-id">{{cartData._id}}</h5>
     <ul id="products-list" style="list-style-type: none; display: flex; flex-direction:column; justify-content: space-evenly; padding:15px;">
-        {{#each cart.products}}
+        {{#each cartData.products}}  
             <li class="product-item">
-                <h4 class="product-item-text">{{this.title}}</h4>
-                <p class="product-item-text">{{this.description}}</p>
-                <p class="product-item-text">Code: {{this.code}}</p>
-                <p class="product-item-text">Price: {{this.price}}</p>
-                <p class="product-item-text">Stock: {{this.stock}} pieces.</p>
-                <button onclick="addProductFromCart('{{this._id}}')">Add</button> 
-                <button onclick="removeProductFromCart('{{this._id}}')">Del</button> 
+                <p class="product-item-text">{{this.pid}}</p>
+                <img style="max-height: 5vh;" src={{ this.thumbnail }} alt={{ this.title }}>
+                <p class="product-item-text">{{ this.title }}</p>
+                <p class="product-item-text">Price: {{ this.price }}</p>
+                <p class="product-item-text">Quantity: {{this.quantity}}</p>
             </li>
         {{/each}}
     </ul>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="main.js"></script>
+    <script src="cart.js"></script>
 
 </body>
+
+                {{!-- <button onclick="addProductFromCart('{{this._id}}')"> + </button> 
+                <button onclick="removeProductFromCart('{{this._id}}')"> - </button>  --}}

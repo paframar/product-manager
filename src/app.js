@@ -1,5 +1,7 @@
 import express from 'express';
 import handlebars from 'express-handlebars';
+import dotenv from 'dotenv';
+
 import cartRouter from './routes/cart.router.js';
 import productsRouter from './routes/products.router.js';
 import viewsRouter from './routes/views.router.js';
@@ -26,8 +28,11 @@ sockets(io)
 console.log('Connecting DB.')
 connectDB()
 
+console.log('dotenv.config().')
+dotenv.config()
+
 console.log('Initializing User Cart.')
-cartManager.InitializeUserCart('userTestId');
+cartManager.InitializeUserCart();
 
 console.log('Midlewares.')
 app.use(express.json())
@@ -44,7 +49,7 @@ app.use('/', viewsRouter)
 
 console.log('Server routes.')
 app.use('/api/products', productsRouter)
-app.use('/api/carts', cartRouter)
+app.use('/api/cart', cartRouter)
 
 
 // const productManager = new ProductManager()
